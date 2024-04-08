@@ -70,10 +70,19 @@ let move = 0;
 
 
 const play = async (i, j) => {
+
+    if (players.value.length < 2) {
+        push.warning('You need two player in the romm')
+        return
+    }
+
     if (gameover.value) {
+        push.warning('Game ended')
         return
     }
     if (grid.value[i][j] !== null) {
+        push.warning('Already Set')
+
         return
     }
     move++;
