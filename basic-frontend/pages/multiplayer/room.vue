@@ -5,8 +5,8 @@
         <div class="bg-white p-8 rounded-lg shadow-md w-[30rem] h-[30rem]">
             <div class="flex w-full justify-around" v-for="(row, i) of grid" :key="i">
                 <button :disabled="!yourTurn" class="h-[6rem] w-[6rem] border-4 border-[#D9EDBF] m-[1rem] rounded-lg "
-                    :class="cell ? 'text-[#FF9800]' : 'text-[#90D26D]'" v-for="(cell, j) of row" :key="j"
-                    @click="play(i, j)">
+                    :class="`${cell ? 'text-[#FF9800]' : 'text-[#90D26D]'} ${!yourTurn ? 'cursor-not-allowed' : ''}`"
+                    v-for="(cell, j) of row" :key="j" @click="play(i, j)">
                     <span v-if="cell === null"></span>
                     <div v-else-if="cell === false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24">
