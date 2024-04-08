@@ -36,4 +36,13 @@ class RoomController extends Controller
             "room" => $room
         ], 200);
     }
+
+    public function list(Request $request)
+    {
+        $user = $request->user();
+        $rooms = $user->rooms;
+        return response([
+            'rooms' => $rooms
+        ]);
+    }
 }

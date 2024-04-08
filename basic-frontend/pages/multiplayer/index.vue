@@ -30,7 +30,26 @@
                             Join
                         </button>
                     </div>
+
+
                 </form>
+            </div>
+            <div class="bg-white p-4 rounded-lg ">
+                <h4 class="text-center mb-4">Your Rooms</h4>
+                <div class="max-h-[10rem] overflow-y-auto">
+                    <div v-for="room, i in rooms"
+                        class=" flex bg-gray-100 justify-between rounded-md overflow-hidden my-2">
+                        <div @click="setRoonmId(room.room_code)" class=" flex items-center select-none">
+
+                            <button class="m-1  text-gray-700 leading-5 	">
+                                {{ i + 1 }}. <small class=" underline">{{ room.room_code }}</small>
+                            </button>
+                        </div>
+                    </div>
+                    <span class="flex justify-center " v-if="loading">
+                        <MiscLoading />
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -44,11 +63,36 @@ definePageMeta({
 const roomStore = useRoomStore();
 const roomId = ref();
 const router = useRouter()
+const loading = ref(true);
+const rooms = ref([]);
 
-onMounted(() => {
-    console.log(roomStore.roomData);
+onMounted(async () => {
+    try {
+        loading.value = true;
+        const res = await $api("/api/room/list", {
+            method: "GET",
+            onResponseError({ response }) {
+                alert('error')
+            },
+        });
+        console.log('rooms >>>', res);
+        rooms.value = res.rooms
+
+    } catch (error) {
+        console.log("Error res >>>", error)
+    }
+    finally {
+        loading.value = false
+    }
+
 });
 
+
+
+
+const setRoonmId = (id) => {
+    roomId.value = id
+}
 
 const createRoom = async () => {
     try {
