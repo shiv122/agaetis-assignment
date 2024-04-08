@@ -77,6 +77,7 @@ const play = (i, j) => {
     return
   }
   if (grid.value[i][j] !== null) {
+    push.warning('Already Set')
     return
   }
   move++;
